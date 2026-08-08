@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "no-starving",
+	"version": "${version}",
+	"name": "No Starving",
+	"description": "Disables starvation mechanics in the game.",
+	"authors": [
+		"ghosti"
+	],
+	"contact": {
+		"homepage": "https://github.com/ghosti-mind/mc-fabric-no-starving/blob/main/README.md",
+		"sources": "https://github.com/ghosti-mind/mc-fabric-no-starving"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/no-starving/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "ghosti.nostarving.NoStarving",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "ghosti.nostarving.client.NoStarvingClient",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"no-starving.mixins.json",
+		{
+			"config": "no-starving.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*"
+	}
+}
