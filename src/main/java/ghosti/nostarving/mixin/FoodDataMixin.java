@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FoodData.class)
 public class FoodDataMixin {
@@ -40,5 +41,17 @@ public class FoodDataMixin {
         this.foodLevel = 0;
 
         ci.cancel();
+    }
+
+    @Inject(method = "hasEnoughFood", at = @At("HEAD"), cancellable = true)
+    public void hasEnoughFood(CallbackInfoReturnable<Boolean> ci) {
+        // necessary to preserve sprint functions
+        ci.setReturnValue(true);
+    }
+
+    @Inject(method = "needsFood", at = @At("HEAD"), cancellable = true)
+    public void needsFood(CallbackInfoReturnable<Boolean> ci) {
+        // always return true here, so that the player can eat larger nutritional content than 20
+        ci.setReturnValue(true);
     }
 }
